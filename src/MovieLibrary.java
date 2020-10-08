@@ -1,39 +1,27 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MovieLibrary implements ILibrary<Movie> {
 	
-	private Movie[] movies;
+	private List<Movie> movies;
 	private String moviesPath;
-	
-	static final int MOVIE_LIBRARY_CAPACITY = 999;
-	
+		
 	public MovieLibrary(String moviesPath) throws FileNotFoundException {
 		this.moviesPath = moviesPath;
 		movies = parseMovies(moviesPath);
 	}
 	
 	public void add(Movie movie) {
-		Movie[] newMovies = new Movie[movies.length+1];
-		for (int i=0; i<movies.length; i++) {
-			newMovies[i] = movies[i];
-		}
-		newMovies[newMovies.length-1] = movie;
-		movies = newMovies;
+		movies.add(movie);
 		writeMovies();
 	}
 	
 	public void remove(int index) {
-		Movie[] newMovies = new Movie[movies.length-1];
-		int i = 0;
-		for (int j=0; j<newMovies.length; j++) {
-			if (j==index) i++;
-			newMovies[j] = movies[i];
-			i++;
-		}
-		movies = newMovies;
+		movies.remove(index);
 		writeMovies();
 	}
 	
@@ -53,28 +41,20 @@ public class MovieLibrary implements ILibrary<Movie> {
 
 	}
 
-	private Movie[] parseMovies(String moviesPath) throws FileNotFoundException {
+	private List<Movie> parseMovies(String moviesPath) throws FileNotFoundException {
 		
 		FileReader reader = new FileReader(moviesPath);
 		Scanner scanner = new Scanner(reader);
 		
 		// Read the movie from CSV
-		Movie[] movies = new Movie[MOVIE_LIBRARY_CAPACITY];
-		int recordIndex = 0;
+		List<Movie> movies = new ArrayList<Movie>();
 		scanner.nextLine(); // skip header line
 		while (scanner.hasNextLine()) {
 			String csvRecord = scanner.nextLine();
-			movies[recordIndex] = Movie.parseMovie(csvRecord);
-			recordIndex++;
+			Movie movie = Movie.parseMovie(csvRecord);
+			movies.add(movie);
 		}
 		scanner.close();
-		
-		// Remove empty spots in movies
-		Movie[] moviesNew = new Movie[recordIndex];
-		for (int i=0; i<recordIndex; i++) {
-			moviesNew[i] = movies[i];
-		}
-		movies = moviesNew;
 		
 		return movies;
 
