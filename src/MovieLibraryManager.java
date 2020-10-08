@@ -95,7 +95,7 @@ public class MovieLibraryManager {
 		System.out.println(library);
 	}
 
-    public static Command parseCommand(String userInput) {
+    private Command parseCommand(String userInput) {
     	String commandString = userInput.split(" ")[0];
     	switch(commandString) {
     		case "add":
@@ -112,7 +112,7 @@ public class MovieLibraryManager {
     	}
     }
     
-    public static String[] parseArguments(String userInput) {
+    private String[] parseArguments(String userInput) {
         String[] commandAndArguments = userInput.split(" ");
         String[] arguments = new String[commandAndArguments.length - 1];
         for (int i=1; i<commandAndArguments.length; i++) {
