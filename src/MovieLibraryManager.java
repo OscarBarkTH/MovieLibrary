@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class MovieLibraryManager {
 
-	private IMovieLibrary library;
+	private ILibrary<Movie> library;
 	
 	private enum Command {
 		ADD,
@@ -76,7 +76,7 @@ public class MovieLibraryManager {
 			return;
 		}
 		Movie movie = new Movie(title, runtime, rating);
-		library.addMovie(movie);
+		library.add(movie);
 	}
 	
 
@@ -88,7 +88,7 @@ public class MovieLibraryManager {
 			System.out.println("Failed to parse index from arguments.");
 			return;
 		}
-		library.removeMovie(index);
+		library.remove(index);
 	}
 	
 	private void displayCommand() {

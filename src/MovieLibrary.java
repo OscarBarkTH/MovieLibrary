@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class MovieLibrary implements IMovieLibrary {
+public class MovieLibrary implements ILibrary<Movie> {
 	
 	private Movie[] movies;
 	private String moviesPath;
@@ -15,7 +15,7 @@ public class MovieLibrary implements IMovieLibrary {
 		movies = parseMovies(moviesPath);
 	}
 	
-	public void addMovie(Movie movie) {
+	public void add(Movie movie) {
 		Movie[] newMovies = new Movie[movies.length+1];
 		for (int i=0; i<movies.length; i++) {
 			newMovies[i] = movies[i];
@@ -25,7 +25,7 @@ public class MovieLibrary implements IMovieLibrary {
 		writeMovies();
 	}
 	
-	public void removeMovie(int index) {
+	public void remove(int index) {
 		Movie[] newMovies = new Movie[movies.length-1];
 		int i = 0;
 		for (int j=0; j<newMovies.length; j++) {
