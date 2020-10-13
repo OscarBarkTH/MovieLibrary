@@ -1,5 +1,5 @@
 
-public interface ILibrary<T> {
-	void add(T movie);
+public interface ILibrary<E> {
+	void add(E element);
 	void remove(int index);
 }
