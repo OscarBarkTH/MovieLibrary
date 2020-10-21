@@ -1,7 +1,7 @@
 
 public class Movie {
 	
-	private String title;
+	private String title; // The title of the movie
 	private int runtime;
 	private float rating;
 	
